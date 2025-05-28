@@ -18,5 +18,9 @@
  <mapping class="model.Personne"/>
  <mapping class="model.User"/>
  <mapping class="model.Trajet"/>
+ <mapping class="model.Voyage"/>
+ <mapping class="model.Reservation"/>
+ 
+ 
  </session-factory>
  </hibernate-configuration>

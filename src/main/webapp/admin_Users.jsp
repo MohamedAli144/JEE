@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.TrajetDAO, model.Trajet, java.util.List" %>
+<%@ page import="dao.UserDAO, model.User, java.util.List" %>
 <!DOCTYPE html>
 <%@ include file="navbar.jsp" %>
 
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Trajets - Admin</title>
+    <title>Gestion des Utilisateurs - Admin</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -158,21 +158,18 @@
 <body>
 
 <div class="container">
-<br/>
-    <div class="actions-bar">
-        <a href="TrajetFormView.jsp" class="btn-create">+ Nouveau Trajet</a>
-    </div>
+    
 
-    <h2>Liste des Trajets</h2>
+    <h2>Liste des Utilisateurs</h2>
 
     <%
-        TrajetDAO trajetDAO = new TrajetDAO();
-        List<Trajet> trajets = trajetDAO.findAll();
+        UserDAO userDAO = new UserDAO();
+        List<User> users = userDAO.findAll();
 
-        if (trajets == null || trajets.isEmpty()) {
+        if (users == null || users.isEmpty()) {
     %>
         <div class="empty-message">
-            Aucun trajet trouvé dans la base de données.
+            Aucun utilisateur trouvé dans la base de données.
         </div>
     <%
         } else {
@@ -181,28 +178,21 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Date</th>
-                    <th>Ville de départ</th>
-                    <th>Destination</th>
-                    <th>Actions</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    for (Trajet t : trajets) {
+                    for (User u : users) {
                 %>
                     <tr>
-                        <td data-label="ID"><%= t.getID() %></td>
-                        <td data-label="Date"><%= t.getDate() %></td>
-                        <td data-label="Ville de départ"><%= t.getVille_Depart() %></td>
-                        <td data-label="Destination"><%= t.getDestination() %></td>
-                        <td class="actions">
-                            <a href="edit_trajet.jsp?id=<%= t.getID() %>" class="btn-edit">Modifier</a>
-                            <a href="delete_trajet.jsp?id=<%= t.getID() %>" class="btn-delete"
-                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?');">
-                                Supprimer
-                            </a>
-                        </td>
+                        <td data-label="ID"><%= u.getId() %></td>
+                        <td data-label="Nom"><%= u.getNom() %></td>
+                        <td data-label="Prénom"><%= u.getPrenom() %></td>
+                        <td data-label="Email"><%= u.getEmail() %></td>
+                        
                     </tr>
                 <%
                     }

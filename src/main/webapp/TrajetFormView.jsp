@@ -5,140 +5,103 @@
     <meta charset="UTF-8">
     <title>Ajouter un trajet</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter :wght@400;700&display=swap" rel="stylesheet">
-
+    <!-- Style CSS intégré -->
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: #e6f7fd;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
         }
 
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            padding: 40px;
-            max-width: 1200px;
-        }
-
-        /* Formulaire */
-        .card {
-            background: #fff;
-            border-radius: 20px;
+            max-width: 600px;
+            margin: auto;
+            background-color: var(--card-bg);
             padding: 30px;
-            width: 340px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .card input,
-        .card select {
+        h3 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="date"] {
             width: 100%;
-            border: none;
-            border-bottom: 1px solid #ccc;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-top: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .btn-submit {
+            margin-top: 25px;
+            width: 100%;
             padding: 12px;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .card .promo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #003B4E;
-            margin-top: 10px;
-        }
-
-        .card .promo span {
-            color: #00b2ff;
-        }
-
-        .card button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 14px;
-            background-color: #00b2ff;
+            background-color: var(--accent-color);
             color: white;
-            font-weight: bold;
-            font-size: 16px;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition);
         }
 
-        .card button:hover {
-            background-color: #007fc1;
+        .btn-submit:hover {
+            background-color: #2980b9;
         }
 
-        /* Train illustration */
-        .illustration {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--accent-color);
+            text-decoration: underline;
+            font-size: 0.95rem;
         }
 
-        .train {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .back-link:hover {
+            color: #2980b9;
         }
 
-        .train-body {
-            width: 220px;
-            height: 100px;
-            background-color: #009dff;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .window {
-            width: 30px;
-            height: 30px;
-            background-color: white;
-            border-radius: 5px;
-        }
-
-        .wheels {
-            display: flex;
-            justify-content: space-between;
-            width: 100px;
-            margin-top: 10px;
-        }
-
-        .wheel {
-            width: 20px;
-            height: 20px;
-            background-color: #004d73;
-            border-radius: 50%;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .container {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .card {
-                width: 90%;
+                padding: 20px;
             }
         }
     </style>
@@ -146,36 +109,21 @@
 <body>
 
 <div class="container">
+    <h3>Ajouter un trajet</h3>
+    <form method="post" action="TrajetController">
+        
+        <label for="ville_depart">Ville de départ</label>
+        <input type="text" id="ville_depart" name="depart" placeholder="Paris" required>
 
-    <!-- Formulaire -->
-    <div class="card">
-        <form method="post" action="TrajetController">
+        <label for="destination">Destination</label>
+        <input type="text" id="destination" name="destination" placeholder="Toulouse" required>
 
-            <input type="text" name="depart" placeholder="Paris" required>
-            <input type="text" name="destination" placeholder="Toulouse" required>
-            <input type="date" name="date" required>
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
 
-            <div class="promo">Économisez jusqu'à <span>72 €</span><br> sur votre premier trajet</div>
-            <button type="submit">Publier un trajet</button>
-
-        </form>
-    </div>
-
-    <!-- Illustration train -->
-    <div class="illustration">
-        <div class="train">
-            <div class="train-body">
-                <div class="window"></div>
-                <div class="window"></div>
-                <div class="window"></div>
-            </div>
-            <div class="wheels">
-                <div class="wheel"></div>
-                <div class="wheel"></div>
-            </div>
-        </div>
-    </div>
-
+        <button type="submit" class="btn-submit">Publier un trajet</button>
+    </form>
+    <a href="admin_trajets.jsp" class="back-link">Retour à la liste</a>
 </div>
 
 </body>

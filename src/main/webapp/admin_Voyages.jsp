@@ -1,12 +1,12 @@
+<%@page import="model.Trajet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.TrajetDAO, model.Trajet, java.util.List" %>
+<%@ page import="dao.VoyageDAO, model.Voyage, java.util.List" %>
 <!DOCTYPE html>
 <%@ include file="navbar.jsp" %>
-
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Trajets - Admin</title>
+    <title>Gestion des Voyages - Admin</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -153,26 +153,34 @@
                 color: var(--primary-color);
             }
         }
+
+        .places-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.95em;
+        }
+
+        .places-cell span {
+            padding-left: 10px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-<br/>
-    <div class="actions-bar">
-        <a href="TrajetFormView.jsp" class="btn-create">+ Nouveau Trajet</a>
-    </div>
+    
 
-    <h2>Liste des Trajets</h2>
+    <h2>Liste des Voyages</h2>
 
     <%
-        TrajetDAO trajetDAO = new TrajetDAO();
-        List<Trajet> trajets = trajetDAO.findAll();
+        VoyageDAO voyageDAO = new VoyageDAO();
+        List<Voyage> voyages = voyageDAO.findAll();
 
-        if (trajets == null || trajets.isEmpty()) {
+        if (voyages == null || voyages.isEmpty()) {
     %>
         <div class="empty-message">
-            Aucun trajet trouvé dans la base de données.
+            Aucun voyage trouvé dans la base de données.
         </div>
     <%
         } else {
@@ -181,25 +189,32 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Date</th>
-                    <th>Ville de départ</th>
-                    <th>Destination</th>
+                    <th>Date du Trajet</th>
+                    <th>Places Disponibles</th>
+                    <th>Trajet Associé</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    for (Trajet t : trajets) {
+                    for (Voyage v : voyages) {
+                        Trajet trajet = v.getTrajet();
+                        String nomTrajet = trajet != null ? trajet.getVille_Depart() + " → " + trajet.getDestination() : "Aucun";
+                        String dateTrajet = trajet != null ? trajet.getDate().toString() : "N/A";
                 %>
                     <tr>
-                        <td data-label="ID"><%= t.getID() %></td>
-                        <td data-label="Date"><%= t.getDate() %></td>
-                        <td data-label="Ville de départ"><%= t.getVille_Depart() %></td>
-                        <td data-label="Destination"><%= t.getDestination() %></td>
+                        <td data-label="ID"><%= v.getId() %></td>
+                        <td data-label="Date du Trajet"><%= dateTrajet %></td>
+                        <td data-label="Places Disponibles" class="places-cell">
+                            <span>Classe 1 : <%= v.getNbp_class1() %> places à <%= v.getPrix_class1() %> DT</span>
+                            <span>Classe 2 : <%= v.getNbp_class2() %> places à <%= v.getPrix_class2() %> DT</span>
+                            <span>Classe 3 : <%= v.getNbp_class3() %> places à <%= v.getPrix_class3() %> DT</span>
+                        </td>
+                        <td data-label="Trajet Associé"><%= nomTrajet %></td>
                         <td class="actions">
-                            <a href="edit_trajet.jsp?id=<%= t.getID() %>" class="btn-edit">Modifier</a>
-                            <a href="delete_trajet.jsp?id=<%= t.getID() %>" class="btn-delete"
-                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?');">
+                            <a href="edit_voyage.jsp?id=<%= v.getId() %>" class="btn-edit">Modifier</a>
+                            <a href="delete_voyage.jsp?id=<%= v.getId() %>" class="btn-delete"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?');">
                                 Supprimer
                             </a>
                         </td>

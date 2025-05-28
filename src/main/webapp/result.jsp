@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<%@ include file="Navbar_user.jsp" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -86,11 +87,7 @@
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <div class="logo">Train Any Time</div>
-    <a href="TrajetView.jsp" class="btn-reserve">Nouvelle recherche</a>
-</div>
+
 
 <!-- CONTAINER -->
 <div class="container">

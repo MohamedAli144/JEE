@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@page import="dao.TrajetDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="Navbar_user.jsp" %>
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -239,11 +241,7 @@
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <div class="logo">Train Any Time</div>
-    
-</div>
+
 
 <!-- MAIN CONTENT -->
 <div class="container">
@@ -316,7 +314,7 @@
  
                             </div>
                         </div>
-                        <a href="reserver_trajet.jsp?id=<%= t.getID() %>" class="btn-reserve">Réserver</a>
+                        <a href="ReservationView.jsp?id=<%= t.getID() %>" class="btn-reserve">Réserver</a>
                     </div>
         <%
                 }

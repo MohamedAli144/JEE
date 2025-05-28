@@ -95,6 +95,7 @@ public class TrajetController extends HttpServlet {
         }
 
         // Redirection
-        response.sendRedirect("admin_trajets.jsp"); // ou une autre page de résultats
+        request.setAttribute("trajet", trajet);
+        request.getRequestDispatcher("createVoyage.jsp").forward(request, response); // ou une autre page de résultats
     }
 }

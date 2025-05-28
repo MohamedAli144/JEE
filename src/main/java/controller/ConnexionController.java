@@ -49,7 +49,7 @@ public class ConnexionController extends HttpServlet {
             session.setAttribute("role", "admin");
             session.setAttribute("email", email);
             System.out.print("Admin");
-            response.sendRedirect("TrajetFormView.jsp"); // Page d'admin
+            response.sendRedirect("admin_trajets.jsp"); // Page d'admin
             return;
         }
 
